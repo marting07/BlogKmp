@@ -7,7 +7,7 @@ plugins {
     kotlin("plugin.serialization") version libs.versions.kotlin.get()
 }
 
-val ktorVersion = "2.3.12"
+val ktorVersion = "3.3.2"
 val serializationJsonVersion = "1.7.3"
 
 kotlin {
@@ -32,14 +32,14 @@ kotlin {
     }
     
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationJsonVersion")
-
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
+                implementation("org.slf4j:slf4j-simple:2.0.16")
             }
         }
         jvmMain.dependencies {
@@ -48,15 +48,25 @@ kotlin {
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-okhttp:${ktorVersion}")
         }
-        val iosMain by creating {
-            dependsOn(commonMain)
+        iosMain {
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             }
         }
-        val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
-        val iosArm64Main by getting { dependsOn(iosMain) }
+        iosSimulatorArm64Main {
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
+        }
+        iosArm64Main {
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
+        }
         jsMain.dependencies {
+            implementation("io.ktor:ktor-client-js:${ktorVersion}")
+        }
+        wasmJsMain.dependencies {
             implementation("io.ktor:ktor-client-js:${ktorVersion}")
         }
         commonTest.dependencies {

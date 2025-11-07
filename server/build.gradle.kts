@@ -4,7 +4,7 @@ plugins {
     application
 }
 
-val ktorVersion = "2.3.12"
+val ktorVersion = "3.3.2"
 
 group = "org.example.blogkmp"
 version = "1.0.0"
@@ -23,7 +23,9 @@ dependencies {
     implementation("io.ktor:ktor-server-cors:${ktorVersion}")
     implementation("io.ktor:ktor-server-content-negotiation:${ktorVersion}")
     implementation("io.ktor:ktor-serialization-kotlinx-json:${ktorVersion}")
+    implementation("io.ktor:ktor-server-status-pages:${ktorVersion}")
     implementation("io.ktor:ktor-server-call-logging:${ktorVersion}")
+    implementation("ch.qos.logback:logback-classic:1.5.12")
     testImplementation(libs.ktor.serverTestHost)
     testImplementation(libs.kotlin.testJunit)
 }

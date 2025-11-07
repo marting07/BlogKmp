@@ -16,6 +16,8 @@ import org.example.blogkmp.models.Post
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 import io.ktor.server.plugins.calllogging.*
+import io.ktor.server.plugins.statuspages.*
+import org.example.blogkmp.dtos.ErrorDto
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
@@ -71,6 +73,14 @@ fun Application.module() {
     }
     install(ContentNegotiation) {
         json(Json { ignoreUnknownKeys = true })
+    }
+    install(StatusPages) {
+        exception<Throwable> { call, cause ->
+            // log full stacktrace to stdout
+            cause.printStackTrace()
+            // return a small JSON error (so client doesn't try to decode as List<Post>)
+            call.respond(HttpStatusCode.InternalServerError, ErrorDto(cause.message ?: "Server error"))
+        }
     }
 
     routing {
