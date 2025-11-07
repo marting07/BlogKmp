@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.example.blogkmp.models.NewPost
 import org.example.blogkmp.models.Post
+import org.example.blogkmp.network.BlogApi
+import org.example.blogkmp.network.fold
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

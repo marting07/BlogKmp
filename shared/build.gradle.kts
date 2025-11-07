@@ -8,7 +8,7 @@ plugins {
 }
 
 val ktorVersion = "3.3.2"
-val serializationJsonVersion = "1.7.3"
+val serializationJsonVersion = "1.8.1"
 
 kotlin {
     androidTarget {
@@ -35,42 +35,27 @@ kotlin {
         commonMain {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationJsonVersion")
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("io.ktor:ktor-client-logging:$ktorVersion")
             }
         }
         jvmMain.dependencies {
-            implementation("io.ktor:ktor-client-cio:${ktorVersion}")
-            implementation("org.slf4j:slf4j-api:2.0.16")
-            runtimeOnly("ch.qos.logback:logback-classic:1.5.12")
         }
         androidMain.dependencies {
-            implementation("io.ktor:ktor-client-okhttp:${ktorVersion}")
-            implementation("org.slf4j:slf4j-api:2.0.16")
-            implementation("org.slf4j:slf4j-android:1.7.36")
         }
         iosMain {
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             }
         }
         iosSimulatorArm64Main {
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             }
         }
         iosArm64Main {
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             }
         }
         jsMain.dependencies {
-            implementation("io.ktor:ktor-client-js:${ktorVersion}")
         }
         wasmJsMain.dependencies {
-            implementation("io.ktor:ktor-client-js:${ktorVersion}")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

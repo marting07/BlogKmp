@@ -11,13 +11,13 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.json.Json
-import org.example.blogkmp.models.NewPost
-import org.example.blogkmp.models.Post
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 import io.ktor.server.plugins.calllogging.*
 import io.ktor.server.plugins.statuspages.*
 import org.example.blogkmp.dtos.ErrorDto
+import org.example.blogkmp.models.NewPost
+import org.example.blogkmp.models.Post
 
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)

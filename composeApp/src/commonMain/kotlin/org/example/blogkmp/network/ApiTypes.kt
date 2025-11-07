@@ -1,4 +1,4 @@
-package org.example.blogkmp
+package org.example.blogkmp.network
 
 import io.ktor.http.HttpStatusCode
 

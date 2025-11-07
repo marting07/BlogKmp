@@ -10,6 +10,8 @@ plugins {
     alias(libs.plugins.composeHotReload)
 }
 
+val ktorVersion = "3.3.2"
+
 kotlin {
     androidTarget {
         compilerOptions {
@@ -44,6 +46,9 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("org.slf4j:slf4j-api:2.0.16")
+            implementation("org.slf4j:slf4j-android:1.7.36")
+            implementation("io.ktor:ktor-client-android:${ktorVersion}")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -55,13 +60,39 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
+            implementation("io.ktor:ktor-client-core:${ktorVersion}")
+            implementation("io.ktor:ktor-client-content-negotiation:${ktorVersion}")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:${ktorVersion}")
+            implementation("io.ktor:ktor-client-logging:${ktorVersion}")
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation("io.ktor:ktor-client-cio:${ktorVersion}")
+            implementation("org.slf4j:slf4j-api:2.0.16")
+            runtimeOnly("ch.qos.logback:logback-classic:1.5.12")
+        }
+        iosMain.dependencies {
+            implementation("io.ktor:ktor-client-darwin:${ktorVersion}")
+        }
+        iosSimulatorArm64Main {
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
+        }
+        iosArm64Main {
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
+        }
+        wasmJsMain.dependencies {
+            implementation("io.ktor:ktor-client-js-wasm-js:${ktorVersion}")
+        }
+        jsMain.dependencies {
+            implementation("io.ktor:ktor-client-js:${ktorVersion}")
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
         }
     }
 }
