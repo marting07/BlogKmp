@@ -39,14 +39,17 @@ kotlin {
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
-                implementation("org.slf4j:slf4j-simple:2.0.16")
             }
         }
         jvmMain.dependencies {
             implementation("io.ktor:ktor-client-cio:${ktorVersion}")
+            implementation("org.slf4j:slf4j-api:2.0.16")
+            runtimeOnly("ch.qos.logback:logback-classic:1.5.12")
         }
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-okhttp:${ktorVersion}")
+            implementation("org.slf4j:slf4j-api:2.0.16")
+            implementation("org.slf4j:slf4j-android:1.7.36")
         }
         iosMain {
             dependencies {
@@ -85,4 +88,7 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
+}
+dependencies {
+    implementation(libs.junit.junit)
 }
