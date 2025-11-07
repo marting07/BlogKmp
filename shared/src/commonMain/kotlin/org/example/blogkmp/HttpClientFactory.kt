@@ -10,7 +10,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import org.example.blogkmp.dtos.ErrorDto
 
-fun makeHttpClient(appLogger: Logger): HttpClient = HttpClient {
+fun makeHttpClient(appLogger: Logger = Logger.DEFAULT): HttpClient = HttpClient {
     expectSuccess = false
 
     install(ContentNegotiation) {
@@ -24,7 +24,7 @@ fun makeHttpClient(appLogger: Logger): HttpClient = HttpClient {
     install(Logging) {
         // Choose one logger implementation:
         // Logger.DEFAULT, Logger.SIMPLE, or provide a custom logger:
-        logger = Logger.DEFAULT
+        this.logger = Logger.DEFAULT
         level = LogLevel.INFO
         // Optional filters:
         // filter { request -> request.url.host.contains("your-host") }

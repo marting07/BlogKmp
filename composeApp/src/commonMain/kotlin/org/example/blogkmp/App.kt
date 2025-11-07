@@ -37,13 +37,11 @@ private fun BlogScreen() {
     fun refresh() {
         scope.launch {
             loading = true; error = null
-            try {
-                posts = api.listPosts()
-            } catch (t: Throwable) {
-                error = t.message
-            } finally {
-                loading = false
-            }
+            api.listPosts().fold(
+                ok = { list -> posts = list },
+                err = { e -> error = e.message }
+            )
+            loading = false
         }
     }
 
@@ -87,15 +85,15 @@ private fun BlogScreen() {
             onClick = {
                 scope.launch {
                     loading = true; error = null
-                    try {
-                        api.createPost(NewPost(title.trim(), body.trim(), author.trim()))
-                        title = ""; body = ""
-                        refresh()
-                    } catch (t: Throwable) {
-                        error = t.message
-                    } finally {
-                        loading = false
-                    }
+                    api.createPost(NewPost(title.trim(), body.trim(), author.trim()))
+                        .fold(
+                            ok = {
+                                title = ""; body = ""
+                                refresh()
+                            },
+                            err = { e -> error = e.message }
+                        )
+                    loading = false
                 }
             },
             enabled = title.isNotBlank() && body.isNotBlank()
