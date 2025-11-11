@@ -20,7 +20,7 @@ import org.example.blogkmp.models.NewPost
 import org.example.blogkmp.models.Post
 
 fun main() {
-    embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
+    embeddedServer(Netty, port = SERVER_PORT, host = SERVER_HOST_URL, module = Application::module)
         .start(wait = true)
 }
 
